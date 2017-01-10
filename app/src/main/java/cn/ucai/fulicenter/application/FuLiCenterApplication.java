@@ -8,7 +8,6 @@ import android.app.Application;
 
 public class FuLiCenterApplication extends Application {
     private static FuLiCenterApplication instance;
-
     public FuLiCenterApplication getInstance() {
         return instance;
     }

@@ -2,6 +2,7 @@ package cn.ucai.fulicenter.application;
 
 
 public interface I {
+
     String SERVER_ROOT = "http://101.251.196.90:8000/FuLiCenterServerV2.0/";
     /** 下拉刷新*/
     int ACTION_DOWNLOAD=0;
