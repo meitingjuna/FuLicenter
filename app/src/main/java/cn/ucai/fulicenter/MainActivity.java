@@ -1,29 +1,37 @@
 package cn.ucai.fulicenter;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
-    RadioButton rbNewgoods, rbBoutigue, rbCategory, rbCart, rbPersonal;
     int index, currentIndex;
     RadioButton[] rbs = new RadioButton[5];
+    @BindView(R.id.Lauout_newgoods)
+    RadioButton LauoutNewgoods;
+    @BindView(R.id.Layout_boutigue)
+    RadioButton LayoutBoutigue;
+    @BindView(R.id.Layout_category)
+    RadioButton LayoutCategory;
+    @BindView(R.id.Layout_cart)
+    RadioButton LayoutCart;
+    @BindView(R.id.Layout_personal)
+    RadioButton LayoutPersonal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        rbNewgoods = (RadioButton) findViewById(R.id.Lauout_newgoods);
-        rbBoutigue = (RadioButton) findViewById(R.id.Layout_boutigue);
-        rbCategory = (RadioButton) findViewById(R.id.Layout_category);
-        rbCart = (RadioButton) findViewById(R.id.Layout_cart);
-        rbPersonal = (RadioButton) findViewById(R.id.Layout_personal);
-        rbs[0] = rbNewgoods;
-        rbs[1] = rbBoutigue;
-        rbs[2] = rbCategory;
-        rbs[3] = rbCart;
-        rbs[4] = rbPersonal;
+        ButterKnife.bind(this);
+        rbs[0] = LauoutNewgoods;
+        rbs[1] = LayoutBoutigue;
+        rbs[2] = LayoutCategory;
+        rbs[3] = LayoutCart;
+        rbs[4] = LayoutPersonal;
     }
 
     public void onCheckedChange(View view) {
