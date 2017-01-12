@@ -31,7 +31,7 @@ import cn.ucai.fulicenter.view.SpaceItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class BoutiqueFragment extends Fragment {
-   // static final int ACTION_DOWNLOAD = 0;//下载首页
+    // static final int ACTION_DOWNLOAD = 0;//下载首页
     //static final int ACTION_PULL_DOWN = 1;//下拉刷新
 
     @BindView(R.id.tvRefresh)
@@ -39,9 +39,8 @@ public class BoutiqueFragment extends Fragment {
     @BindView(R.id.mRw)
     RecyclerView mRw;
     @BindView(R.id.srl)
-    SwipeRefreshLayout srl;
-
-    LinearLayoutManager gm;
+    SwipeRefreshLayout srl;//上拉下拉
+    LinearLayoutManager gm;//
     BoutiqueAdapter mAdapter;
     ArrayList<BoutiqueBean> mList = new ArrayList<>();
     IModelNewBoutique mModel;
@@ -95,9 +94,7 @@ public class BoutiqueFragment extends Fragment {
 
             }
         });
-
     }
-
 
     private void initView() {
         srl.setColorSchemeColors(
@@ -105,14 +102,6 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red));
-        /*gm = new LinearLayoutManager(getContext());
-        mRw.setLayoutManager(gm);
-        mRw.setHasFixedSize(true);
-        mAdapter = new BoutiqueAdapter(getContext(), mList);
-        mRw.setAdapter(mAdapter);
-        mRw.addItemDecoration(new SpaceItemDecoration(20));
-        tvChunxing.setVisibility(View.VISIBLE);
-        srl.setVisibility(View.GONE);*/
         gm = new LinearLayoutManager(getContext());
         mRw.addItemDecoration(new SpaceItemDecoration(20));
         mRw.setLayoutManager(gm);

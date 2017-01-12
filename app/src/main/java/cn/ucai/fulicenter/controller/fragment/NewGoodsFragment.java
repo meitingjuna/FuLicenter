@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ public class NewGoodsFragment extends Fragment {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && mAdapter.isMore() && lastPosition == mAdapter.getItemCount() - 1) ;
                 pageId++;
-                downloadContactLiset(ACTION_PULL_UP, pageId);
+                downloadContactLiset(I.ACTION_PULL_UP, pageId);
             }
         });
 
@@ -94,23 +95,25 @@ public class NewGoodsFragment extends Fragment {
                 srl.setRefreshing(true);
                 tvRefresh.setVisibility(View.VISIBLE);
                 pageId = 1;
-                downloadContactLiset(ACTION_PULL_DOWN, pageId);
+                downloadContactLiset(I.ACTION_PULL_DOWN, pageId);
             }
         });
     }
 
     private void initData() {
         pageId = 1;
-        downloadContactLiset(ACTION_DOWNLOAD, pageId);
+        downloadContactLiset(I.ACTION_DOWNLOAD, pageId);
     }
 
     private void downloadContactLiset(final int action, int PageId) {
-        mModel.downData(getContext(), I.CAT_ID, pageId, new OnCompleteListener<NewGoodsBean[]>() {
+        int catId = getActivity().getIntent().getIntExtra(I.NewAndBoutiqueGoods.CAT_ID, I.CAT_ID);
+        mModel.downData(getContext(), catId, pageId, new OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 mAdapter.setMore(result != null && result.length > 0);
                 if (!mAdapter.isMore()) {
-                    if (action == ACTION_PULL_UP) {
+                    if (action == I.ACTION_PULL_UP) {
+                        //Log.i("加载数据>>>>>>>>>>>>>>>>>>", "xaizai>>>>>>>>>>>>>>>>>>>");
                         mAdapter.setFooter("没有更多数据了/(ㄒoㄒ)");
                     }
                     return;
@@ -118,15 +121,15 @@ public class NewGoodsFragment extends Fragment {
                 mAdapter.setFooter("加载更多数据O(∩_∩)");
                 ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
                 switch (action) {
-                    case ACTION_DOWNLOAD:
+                    case I.ACTION_DOWNLOAD:
                         mAdapter.initData(list);
                         break;
-                    case ACTION_PULL_DOWN:
+                    case I.ACTION_PULL_DOWN:
                         srl.setRefreshing(false);
                         tvRefresh.setVisibility(View.GONE);
                         mAdapter.initData(list);
                         break;
-                    case ACTION_PULL_UP:
+                    case I.ACTION_PULL_UP:
                         mAdapter.addData(list);
                         break;
                 }
