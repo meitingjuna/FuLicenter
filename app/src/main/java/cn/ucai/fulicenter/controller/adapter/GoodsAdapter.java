@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.ustils.ImageLoader;
+import cn.ucai.fulicenter.view.MFGT;
 
 /**
  * Created by MTJ on 2017/1/11.
@@ -58,7 +59,6 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     }
 
 
-
     public GoodsAdapter(Context context, ArrayList<NewGoodsBean> list) {
         mContext = context;
         mList = new ArrayList<>();
@@ -77,21 +77,24 @@ public class GoodsAdapter extends RecyclerView.Adapter {
             return holder;
         }
     }
-    //RecyclerView.ViewHolder holder = new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
-
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_FOOTER) {
             FooterViewHolder vh = (FooterViewHolder) holder;
             vh.tvFooter.setText(getFooter());
-            return;
+        } else {
+            GoodsViewHolder holder1 = (GoodsViewHolder) holder;
+            ImageLoader.downloadImg(mContext, holder1.ivGoodsThumb, mList.get(position).getGoodsThumb());
+            holder1.tvGoodsName.setText(mList.get(position).getGoodsName());
+            holder1.tvGoodsPrice.setText(mList.get(position).getCurrencyPrice());
+            holder1.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MFGT.gotoGoodsDetail(mContext, mList.get(position).getGoodsId());
+                }
+            });
         }
-
-        GoodsViewHolder holder1 = (GoodsViewHolder) holder;
-        ImageLoader.downloadImg(mContext, holder1.ivGoodsThumb, mList.get(position).getGoodsThumb());
-        holder1.tvGoodsName.setText(mList.get(position).getGoodsName());
-        holder1.tvGoodsPrice.setText(mList.get(position).getCurrencyPrice());
     }
 
     @Override

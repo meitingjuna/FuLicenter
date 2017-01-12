@@ -76,9 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (index != currentIndex) {
             setRadioStatus();
         }
-
     }
-
     private void setRadioStatus() {
         for (int i = 0; i < rbs.length; i++) {
             if (index != i) {
