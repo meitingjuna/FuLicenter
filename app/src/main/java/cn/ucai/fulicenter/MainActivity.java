@@ -15,7 +15,7 @@ import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int index, currentIndex;
     RadioButton[] rbs = new RadioButton[5];
-    FragmentTransaction ft ;
+    FragmentTransaction ft;
 
     @BindView(R.id.Lauout_newgoods)
     RadioButton LauoutNewgoods;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LayoutCart.setOnClickListener(this);
         LayoutPersonal.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         ft = getSupportFragmentManager().beginTransaction();

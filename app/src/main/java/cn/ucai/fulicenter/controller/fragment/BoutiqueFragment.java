@@ -10,23 +10,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.adapter.BoutiqueAdapter;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
-
 import cn.ucai.fulicenter.model.net.IModelNewBoutique;
-
 import cn.ucai.fulicenter.model.net.ModelBoutique;
-
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
-
+import cn.ucai.fulicenter.model.ustils.CommonUtils;
 import cn.ucai.fulicenter.model.ustils.ConvertUtils;
 import cn.ucai.fulicenter.view.SpaceItemDecoration;
 
@@ -34,8 +31,8 @@ import cn.ucai.fulicenter.view.SpaceItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class BoutiqueFragment extends Fragment {
-    static final int ACTION_DOWNLOAD = 0;//下载首页
-    static final int ACTION_PULL_DOWN = 1;//下拉刷新
+   // static final int ACTION_DOWNLOAD = 0;//下载首页
+    //static final int ACTION_PULL_DOWN = 1;//下拉刷新
 
     @BindView(R.id.tvRefresh)
     TextView tvRefresh;
@@ -48,7 +45,9 @@ public class BoutiqueFragment extends Fragment {
     BoutiqueAdapter mAdapter;
     ArrayList<BoutiqueBean> mList = new ArrayList<>();
     IModelNewBoutique mModel;
-    int pageId = 1;
+    @BindView(R.id.tvChunxing)
+    TextView tvChunxing;
+
 
     public BoutiqueFragment() {
         // Required empty public constructor
@@ -62,57 +61,39 @@ public class BoutiqueFragment extends Fragment {
         ButterKnife.bind(this, layout);
         initView();
         mModel = new ModelBoutique();
-        initData();
-        setListener();
+        setPullDownListener();
         return layout;
     }
 
-    private void setListener() {
-        setPullDownListener();
-    }
-
-
-    //下拉
-    private void setPullDownListener() {
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                srl.setRefreshing(true);
-                tvRefresh.setVisibility(View.VISIBLE);
-                pageId = 1;
-                downloadContactLiset(ACTION_PULL_DOWN, pageId);
-            }
-        });
-    }
-
-    private void initData() {
-        pageId = 1;
-        downloadContactLiset(ACTION_DOWNLOAD, pageId);
-    }
-
-    private void downloadContactLiset(final int action, int PageId) {
+    private void initData(final int action) {
         mModel.downData(getContext(), new OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
-                ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
-                switch (action) {
-                    case ACTION_DOWNLOAD:
+                srl.setRefreshing(false);
+                tvRefresh.setVisibility(View.GONE);
+                srl.setVisibility(View.VISIBLE);
+                tvChunxing.setVisibility(View.GONE);
+                if (result != null && result.length > 0) {
+                    ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
+                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
                         mAdapter.initData(list);
-                        break;
-                    case ACTION_PULL_DOWN:
-                        srl.setRefreshing(false);
-                        tvRefresh.setVisibility(View.GONE);
-                        mAdapter.initData(list);
-                        break;
+                    } else {
+                        mAdapter.addData(list);
+                    }
+                } else {
+                    tvChunxing.setVisibility(View.VISIBLE);
+                    srl.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                srl.setRefreshing(false);
+                tvChunxing.setVisibility(View.VISIBLE);
+                tvRefresh.setVisibility(View.GONE);
+                CommonUtils.showShortToast(error);
 
             }
-
         });
 
     }
@@ -124,12 +105,39 @@ public class BoutiqueFragment extends Fragment {
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red));
-        gm = new LinearLayoutManager(getContext());
+        /*gm = new LinearLayoutManager(getContext());
         mRw.setLayoutManager(gm);
         mRw.setHasFixedSize(true);
         mAdapter = new BoutiqueAdapter(getContext(), mList);
         mRw.setAdapter(mAdapter);
         mRw.addItemDecoration(new SpaceItemDecoration(20));
+        tvChunxing.setVisibility(View.VISIBLE);
+        srl.setVisibility(View.GONE);*/
+        gm = new LinearLayoutManager(getContext());
+        mRw.addItemDecoration(new SpaceItemDecoration(20));
+        mRw.setLayoutManager(gm);
+        mRw.setHasFixedSize(true);
+        mAdapter = new BoutiqueAdapter(getContext(), mList);
+        mRw.setAdapter(mAdapter);
+        srl.setVisibility(View.GONE);
+        tvChunxing.setVisibility(View.VISIBLE);
     }
 
+
+    private void setPullDownListener() {
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                tvRefresh.setVisibility(View.VISIBLE);
+                initData(I.ACTION_PULL_DOWN);
+            }
+        });
+    }
+
+    @OnClick(R.id.tvChunxing)
+    public void onClick() {
+        initData(I.ACTION_DOWNLOAD);
+
+    }
 }
