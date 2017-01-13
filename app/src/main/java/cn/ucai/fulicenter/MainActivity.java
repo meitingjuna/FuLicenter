@@ -1,22 +1,25 @@
 package cn.ucai.fulicenter;
 
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     int index, currentIndex;
+    Fragment[] mFragment = new Fragment[5];
     RadioButton[] rbs = new RadioButton[5];
-    FragmentTransaction ft;
-
     @BindView(R.id.Lauout_newgoods)
     RadioButton LauoutNewgoods;
     @BindView(R.id.Layout_boutigue)
@@ -28,55 +31,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.Layout_personal)
     RadioButton LayoutPersonal;
 
+    NewGoodsFragment mNewGoodsFragment;
+    BoutiqueFragment mBoutiqueGoodsFragment;
+    CategoryFragment mCategoryFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setListener();
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, new NewGoodsFragment()).commit();
+
         rbs[0] = LauoutNewgoods;
         rbs[1] = LayoutBoutigue;
         rbs[2] = LayoutCategory;
         rbs[3] = LayoutCart;
         rbs[4] = LayoutPersonal;
+
+        mNewGoodsFragment = new NewGoodsFragment();
+        mBoutiqueGoodsFragment = new BoutiqueFragment();
+        mCategoryFragment = new CategoryFragment();
+
+        mFragment[0] = mNewGoodsFragment;
+        mFragment[1] = mBoutiqueGoodsFragment;
+        mFragment[2] = mCategoryFragment;
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, mNewGoodsFragment)
+                .add(R.id.fragment_container, mBoutiqueGoodsFragment)
+                .add(R.id.fragment_container, mCategoryFragment)
+                .show(mNewGoodsFragment)
+                .hide(mBoutiqueGoodsFragment)
+                .hide(mCategoryFragment)
+                .commit();
     }
 
-    private void setListener() {
-        LauoutNewgoods.setOnClickListener(this);
-        LayoutBoutigue.setOnClickListener(this);
-        LayoutCategory.setOnClickListener(this);
-        LayoutCart.setOnClickListener(this);
-        LayoutPersonal.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        ft = getSupportFragmentManager().beginTransaction();
-        switch (v.getId()) {
+    public void onCheckedChange(View view) {
+        switch (view.getId()) {
             case R.id.Lauout_newgoods:
                 index = 0;
-                ft.replace(R.id.fragment_container, new NewGoodsFragment()).commit();
                 break;
             case R.id.Layout_boutigue:
                 index = 1;
-                ft.replace(R.id.fragment_container, new BoutiqueFragment()).commit();
+                break;
             case R.id.Layout_category:
-                //index = 2;
+                index = 2;
                 break;
             case R.id.Layout_cart:
-                //index = 3;
+                index = 3;
                 break;
             case R.id.Layout_personal:
-
-                //index = 4;
+                index = 4;
                 break;
         }
+        setFragment();
         if (index != currentIndex) {
             setRadioStatus();
         }
     }
+
+    private void setFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .show(mFragment[index]).hide(mFragment[currentIndex]).commit();
+    }
+
     private void setRadioStatus() {
         for (int i = 0; i < rbs.length; i++) {
             if (index != i) {
@@ -87,5 +103,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         currentIndex = index;
     }
-
 }

@@ -31,9 +31,6 @@ import cn.ucai.fulicenter.view.SpaceItemDecoration;
  * A simple {@link Fragment} subclass.
  */
 public class NewGoodsFragment extends Fragment {
-    static final int ACTION_DOWNLOAD = 0;//下载首页
-    static final int ACTION_PULL_DOWN = 1;//下拉刷新
-    static final int ACTION_PULL_UP = 2;//上拉加载
 
     @BindView(R.id.tvRefresh)
     TextView tvRefresh;

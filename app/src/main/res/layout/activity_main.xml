@@ -17,6 +17,7 @@
         <RadioButton
             android:id="@+id/Lauout_newgoods"
             style="@style/menu_item_style"
+            android:onClick="onCheckedChange"
             android:button="@null"
             android:checked="true"
             android:drawableTop="@drawable/selector_menu_item_new_good"
@@ -26,6 +27,7 @@
         <RadioButton
             android:id="@+id/Layout_boutigue"
             style="@style/menu_item_style"
+            android:onClick="onCheckedChange"
             android:button="@null"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_boutique"
@@ -36,6 +38,7 @@
             android:id="@+id/Layout_category"
             style="@style/menu_item_style"
             android:button="@null"
+            android:onClick="onCheckedChange"
             android:checked="false"
             android:drawableTop="@drawable/selector_menu_item_category"
             android:text="分类"
@@ -46,6 +49,7 @@
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="false"
+            android:onClick="onCheckedChange"
             android:drawableTop="@drawable/selector_menu_item_cart"
             android:text="购物车"
             android:textColor="@color/main_botton_text_color" />
@@ -55,6 +59,7 @@
             style="@style/menu_item_style"
             android:button="@null"
             android:checked="false"
+            android:onClick="onCheckedChange"
             android:drawableTop="@drawable/selector_menu_item_personal_center"
             android:text="我的"
             android:textColor="@color/main_botton_text_color" />

@@ -1,16 +1,21 @@
 package cn.ucai.fulicenter.controller.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
 import cn.ucai.fulicenter.model.bean.CategoryGroupBean;
+import cn.ucai.fulicenter.model.ustils.ImageLoader;
 
 /**
  * Created by MTJ on 2017/1/13.
@@ -19,34 +24,41 @@ import cn.ucai.fulicenter.model.bean.CategoryGroupBean;
 public class CategoryAdapter extends BaseExpandableListAdapter {
     Context mContext;
     ArrayList<CategoryGroupBean> mGroupBean;
+
+    public CategoryAdapter(Context context,
+                           ArrayList<ArrayList<CategoryChildBean>> childBean, ArrayList<CategoryGroupBean> groupBean) {
+        mContext = context;
+        mGroupBean = new ArrayList<>();
+        mGroupBean.addAll(groupBean);
+        mChildBean = new ArrayList<>();
+        mChildBean.addAll(childBean);
+    }
+
     ArrayList<ArrayList<CategoryChildBean>> mChildBean;
 
-    public CategoryAdapter(Context mContext, ArrayList<CategoryGroupBean> groupBeen, ArrayList<ArrayList<CategoryChildBean>> childBeen) {
-        this.mContext = mContext;
-        this.mGroupBean = new ArrayList<>();
-        mGroupBean.addAll(groupBeen);
-        this.mChildBean =  new ArrayList<>();
-        mChildBean.addAll(childBeen);
-    }
 
     @Override
     public int getGroupCount() {
-        return mGroupBean!=null?mGroupBean.size():0;
+        return mGroupBean != null ? mGroupBean.size() : 0;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mChildBean!=null&&mChildBean.get(groupPosition)!=null?mChildBean.get(groupPosition).size():0;
+        return mChildBean != null && mChildBean.get(groupPosition) != null ? mChildBean.get(groupPosition).size() : 0;
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
-        return mGroupBean.get(groupPosition);
+    public CategoryGroupBean getGroup(int groupPosition) {
+        if (mGroupBean != null && mGroupBean.get(groupPosition) != null) {
+            return mGroupBean.get(groupPosition);
+        }
+
+        return null;
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        if (mChildBean!=null&&mGroupBean.get(groupPosition)!=null){
+    public CategoryChildBean getChild(int groupPosition, int childPosition) {
+        if (mChildBean != null && mChildBean.get(groupPosition) != null) {
             return mChildBean.get(groupPosition).get(childPosition);
         }
         return null;
@@ -68,19 +80,72 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-       View inflate= LayoutInflater.from(mContext).inflate(R.layout.item_category_group,null);
-        return inflate;
+    public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
+        GroupViewHolder vh = null;
+        if (view == null) {
+            view = View.inflate(mContext, R.layout.item_category_group, null);
+            vh = new GroupViewHolder(view);
+            view.setTag(vh);
+        } else {
+            vh = (GroupViewHolder) view.getTag();
+        }
+        ImageLoader.downloadImg(mContext, vh.ivGroupThumb, mGroupBean.get(groupPosition).getImageUrl());
+        vh.tvGroupName.setText(mGroupBean.get(groupPosition).getName());
+        vh.ivIndicator.setImageResource(isExpanded ? R.mipmap.expand_off : R.mipmap.expand_on);
+        return view;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        View inflate= LayoutInflater.from(mContext).inflate(R.layout.item_category_child,null);
-        return inflate;
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+        ChildViewHolder vh = null;
+        if (view == null) {
+            view = View.inflate(mContext, R.layout.item_category_child, null);
+            vh = new ChildViewHolder(view);
+            view.setTag(vh);
+        } else {
+            vh = (ChildViewHolder) view.getTag();
+        }
+        ImageLoader.downloadImg(mContext, vh.ivCategoryChildThumb, getChild(groupPosition, childPosition).getImageUrl());
+        vh.tvCategoryChildNaem.setText(getChild(groupPosition, childPosition).getName());
+        return view;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void initData(ArrayList<CategoryGroupBean> groupBeen,
+                         ArrayList<ArrayList<CategoryChildBean>> childBean) {
+        mGroupBean.clear();
+        mGroupBean.addAll(groupBeen);
+        mChildBean.clear();
+        mChildBean.addAll(childBean);
+        notifyDataSetChanged();
+    }
+
+
+    static class GroupViewHolder {
+        @BindView(R.id.ivGroupThumb)
+        ImageView ivGroupThumb;
+        @BindView(R.id.tvGroupName)
+        TextView tvGroupName;
+        @BindView(R.id.ivIndicator)
+        ImageView ivIndicator;
+
+        GroupViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    static class ChildViewHolder {
+        @BindView(R.id.iv_category_child_thumb)
+        ImageView ivCategoryChildThumb;
+        @BindView(R.id.tvCategoryChildName)
+        TextView tvCategoryChildNaem;
+
+        ChildViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
