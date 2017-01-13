@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,6 +89,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onError(String error) {
+                Toast.makeText(GoodsDetailsActivity.this, error, Toast.LENGTH_SHORT).show();
 
             }
         });
