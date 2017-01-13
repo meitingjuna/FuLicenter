@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/main_orange">
+        <include
+            android:id="@+id/fffff"
+            layout="@layout/common_head_title" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_sort"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layout_title"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnPriceSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#e7d560"
+            android:drawableRight="@drawable/arrow_order_down"
+            android:padding="5dp"
+            android:text="价格"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/btnAddTimeSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#e7d561"
+            android:drawableRight="@drawable/arrow_order_down"
+            android:padding="5dp"
+            android:text="上架时间"
+            android:textColor="#000" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_sort" />
+</RelativeLayout>

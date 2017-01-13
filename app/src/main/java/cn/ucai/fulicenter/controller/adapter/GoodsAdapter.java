@@ -1,17 +1,22 @@
 package cn.ucai.fulicenter.controller.adapter;
 
 import android.content.Context;
+
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
 import cn.ucai.fulicenter.model.ustils.ImageLoader;
 import cn.ucai.fulicenter.view.MFGT;
@@ -34,6 +39,39 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     public void setMore(boolean more) {
         isMore = more;
         notifyDataSetChanged();
+    }
+
+    public void sortGoods(final int sortBy) {
+        Collections.sort(mList, new Comparator<NewGoodsBean>() {
+            @Override
+            public int compare(NewGoodsBean leftBean, NewGoodsBean rightBean) {
+                int result = 0;
+                switch (sortBy) {
+                    case I.SORT_BY_ADDTIME_ASC:
+                        result = (int) (leftBean.getAddTime() - rightBean.getAddTime());
+                        break;
+                    case I.SORT_BY_ADDTIME_DESC:
+                        result = (int) (rightBean.getAddTime() - leftBean.getAddTime());
+                        break;
+                    case I.SORT_BY_PRICE_ASC:
+                        result = getPrice(leftBean.getCurrencyPrice()) - getPrice(rightBean.getCurrencyPrice());
+                        break;
+                    case I.SORT_BY_PRICE_DESC:
+                        result = getPrice(rightBean.getCurrencyPrice()) - getPrice(leftBean.getCurrencyPrice());
+                        break;
+                }
+                return result;
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    int getPrice(String price) {
+        int p = 0;
+        p = Integer.valueOf(price.substring(price.indexOf("￥") + 1));
+        Log.e("addapter", "p" + p);
+        return p;
+
     }
 
     String footer;
@@ -122,6 +160,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         mList.addAll(list);
         notifyDataSetChanged();
     }
+
 
     static class GoodsViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivGoodsThumb)

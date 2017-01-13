@@ -5,9 +5,10 @@
 
     <ExpandableListView
         android:id="@+id/elv_category"
+        android:groupIndicator="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="8dp"></ExpandableListView>
+        android:dividerHeight="8dp"/>
 
     <TextView
         android:id="@+id/tv_nomore"

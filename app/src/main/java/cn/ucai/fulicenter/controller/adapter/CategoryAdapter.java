@@ -16,6 +16,7 @@ import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
 import cn.ucai.fulicenter.model.bean.CategoryGroupBean;
 import cn.ucai.fulicenter.model.ustils.ImageLoader;
+import cn.ucai.fulicenter.view.MFGT;
 
 /**
  * Created by MTJ on 2017/1/13.
@@ -24,6 +25,7 @@ import cn.ucai.fulicenter.model.ustils.ImageLoader;
 public class CategoryAdapter extends BaseExpandableListAdapter {
     Context mContext;
     ArrayList<CategoryGroupBean> mGroupBean;
+    ArrayList<ArrayList<CategoryChildBean>> mChildBean;
 
     public CategoryAdapter(Context context,
                            ArrayList<ArrayList<CategoryChildBean>> childBean, ArrayList<CategoryGroupBean> groupBean) {
@@ -34,9 +36,6 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         mChildBean.addAll(childBean);
     }
 
-    ArrayList<ArrayList<CategoryChildBean>> mChildBean;
-
-
     @Override
     public int getGroupCount() {
         return mGroupBean != null ? mGroupBean.size() : 0;
@@ -44,7 +43,8 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mChildBean != null && mChildBean.get(groupPosition) != null ? mChildBean.get(groupPosition).size() : 0;
+        return mChildBean != null && mChildBean.get(groupPosition) != null ?
+                mChildBean.get(groupPosition).size() : 0;
     }
 
     @Override
@@ -96,17 +96,25 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         ChildViewHolder vh = null;
         if (view == null) {
             view = View.inflate(mContext, R.layout.item_category_child, null);
             vh = new ChildViewHolder(view);
+
             view.setTag(vh);
         } else {
             vh = (ChildViewHolder) view.getTag();
+
         }
         ImageLoader.downloadImg(mContext, vh.ivCategoryChildThumb, getChild(groupPosition, childPosition).getImageUrl());
         vh.tvCategoryChildNaem.setText(getChild(groupPosition, childPosition).getName());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MFGT.gotoCategoryChild(mContext, mChildBean.get(groupPosition).get(childPosition).getId());
+            }
+        });
         return view;
     }
 

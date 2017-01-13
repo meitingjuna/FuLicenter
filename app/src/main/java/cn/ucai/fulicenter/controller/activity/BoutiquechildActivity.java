@@ -20,7 +20,6 @@ public class BoutiquechildActivity extends AppCompatActivity {
     ImageView mBack;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,7 @@ public class BoutiquechildActivity extends AppCompatActivity {
 
     @OnClick(R.id.mBack)
     public void onClick() {
-        MFGT.finish(this);
+        MFGT.finish(this);//结束这个页面重新回到上一个页面.
         //this.finish();//结束这个页面重新回到上一个页面.
     }
 }
