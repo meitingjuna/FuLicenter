@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, Result.class);
                     if (result != null) {
+                        Log.e(">>>>>>>>>>"," "+result);
                         if (result.isRetMsg()) {
                             CommonUtils.showShortToast(R.string.register_success);
                         } else {
