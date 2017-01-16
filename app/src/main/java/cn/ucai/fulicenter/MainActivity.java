@@ -12,9 +12,11 @@ import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
+import cn.ucai.fulicenter.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
     int index, currentIndex;
@@ -79,7 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 index = 3;
                 break;
             case R.id.Layout_personal:
-                index = 4;
+                if (FuLiCenterApplication.getUser()==null){
+                    MFGT.gotoLogin(this);
+                }else {
+                    index = 4;
+                }
                 break;
         }
         setFragment();
