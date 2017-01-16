@@ -17,8 +17,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
-
-
     @OnClick({R.id.ivReturn, R.id.btnLogin, R.id.btnRegister})
     public void onClick(View view) {
         switch (view.getId()) {
