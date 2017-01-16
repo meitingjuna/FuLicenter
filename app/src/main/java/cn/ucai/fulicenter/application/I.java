@@ -148,6 +148,9 @@ public interface I {
     interface CategoryChild extends CategoryGroup{
         String PARENT_ID="parent_id";
         String CAT_ID="catId";
+        String DATA = "category_child_data";
+
+
     }
 
     interface CategoryGood{

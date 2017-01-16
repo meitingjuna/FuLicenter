@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.ArrayList;
+
 import cn.ucai.fulicenter.MainActivity;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
@@ -50,10 +52,11 @@ public class MFGT {
         startActivity((Activity) context, intent);
     }
     //分类1跳二
-    public static void gotoCategoryChild(Context context, int catId, CategoryChildBean a) {
+    public static void gotoCategoryChild(Context context, int catId, String getName, ArrayList<CategoryChildBean> list) {
         Intent intent = new Intent(context,CategoryChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID, catId);
-        intent.putExtra(I.Category.KEY_NAME,a.getName());
+        intent.putExtra(I.CategoryGroup.NAME,getName);
+        intent.putExtra(I.CategoryChild.DATA,list);
         startActivity((Activity) context, intent);
     }
 }

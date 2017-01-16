@@ -22,8 +22,20 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/mBack"
             android:gravity="center_vertical"
-            android:text="不一样的你"
+            android:text=""
             android:textSize="20dp" />
+
+        <cn.ucai.fulicenter.view.CatFilterButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分类"
+            android:id="@+id/mButton_file"
+            android:textColor="#fdfdfd"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/arrow2_up"
+            />
 
     </RelativeLayout>
 
