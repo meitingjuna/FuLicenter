@@ -1,8 +1,10 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -17,8 +19,12 @@ public class CategoryChildActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodFragment;
     boolean pricAsc = false;
     boolean addTimeAsc = false;
-    @BindView(R.id.tv_common_title)
-    TextView tvCommonTitle;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.btnPriceSort)
+    Button btnPriceSort;
+    @BindView(R.id.btnAddTimeSort)
+    Button btnAddTimeSort;
 
 
     @Override
@@ -30,33 +36,48 @@ public class CategoryChildActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodFragment)
                 .commit();
+        tvTitle.setText(getIntent().getStringExtra(I.Category.KEY_NAME));
     }
 
 
     @OnClick({R.id.btnPriceSort, R.id.btnAddTimeSort})
     public void onClick(View view) {
         int sorBy = I.SORT_BY_ADDTIME_ASC;
+        Drawable right;
         switch (view.getId()) {
             case R.id.btnPriceSort:
                 if (pricAsc) {
                     sorBy = I.SORT_BY_PRICE_ASC;
+                    right = getResources().getDrawable(R.drawable.arrow_order_up);
                 } else {
                     sorBy = I.SORT_BY_PRICE_DESC;
+                    right = getResources().getDrawable(R.drawable.arrow_order_down);
+
                 }
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                btnPriceSort.setCompoundDrawablesWithIntrinsicBounds(null,null,right,null);
+                pricAsc = !pricAsc;
                 break;
             case R.id.btnAddTimeSort:
                 if (addTimeAsc) {
                     sorBy = I.SORT_BY_ADDTIME_ASC;
+                    right = getResources().getDrawable(R.drawable.arrow_order_up);
                 } else {
                     sorBy = I.SORT_BY_ADDTIME_DESC;
+                    right = getResources().getDrawable(R.drawable.arrow_order_down);
                 }
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                btnAddTimeSort.setCompoundDrawablesWithIntrinsicBounds(null,null,right,null);
+                addTimeAsc = !addTimeAsc;
                 break;
         }
         mNewGoodFragment.sortGoods(sorBy);
     }
 
-    @OnClick(R.id.ivBack)
+
+    @OnClick(R.id.mBack)
     public void onClick() {
         MFGT.finish(this);
     }
+
 }

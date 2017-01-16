@@ -2,17 +2,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff">
+
     <RelativeLayout
-        android:id="@+id/layout_title"
+        android:id="@+id/Re"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:background="@color/main_orange">
-        <include
-            android:id="@+id/fffff"
-            layout="@layout/common_head_title" />
+        android:background="#c43d38">
 
+        <ImageView
+            android:id="@+id/mBack"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/mBack"
+            android:gravity="center_vertical"
+            android:text="不一样的你"
+            android:textSize="20dp" />
 
     </RelativeLayout>
+
+    <View
+        android:id="@+id/View"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/Re"
+        android:background="#1347f4"/>
 
     <LinearLayout
         android:id="@+id/layout_sort"
@@ -20,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/layout_title"
+        android:layout_below="@+id/View"
         android:orientation="horizontal">
 
         <Button
@@ -28,18 +48,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#e7d560"
+            android:background="#9f9a9a"
             android:drawableRight="@drawable/arrow_order_down"
             android:padding="5dp"
             android:text="价格"
             android:textColor="#000" />
+
 
         <Button
             android:id="@+id/btnAddTimeSort"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#e7d561"
+            android:background="#9f9a9a"
             android:drawableRight="@drawable/arrow_order_down"
             android:padding="5dp"
             android:text="上架时间"

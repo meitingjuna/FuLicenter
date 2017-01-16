@@ -21,8 +21,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="正在刷新"
-                android:textColor="#d710da"
+                android:text="正在为您推荐"
+                android:textColor="#8ac2ef"
                 android:textSize="20sp"
                 android:visibility="gone" />
 

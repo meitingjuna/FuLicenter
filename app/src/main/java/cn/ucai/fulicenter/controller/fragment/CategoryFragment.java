@@ -48,7 +48,9 @@ public class CategoryFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_category, container, false);
         ButterKnife.bind(this, layout);
         mAdapter = new CategoryAdapter(getContext(), mChildBean, mGroupBean);
+
         elvCategory.setAdapter(mAdapter);
+        elvCategory.setGroupIndicator(null);
         initView(false);
         initData();
         return layout;

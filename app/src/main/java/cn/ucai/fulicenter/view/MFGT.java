@@ -12,6 +12,7 @@ import cn.ucai.fulicenter.controller.activity.CategoryChildActivity;
 import cn.ucai.fulicenter.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulicenter.controller.activity.SplashActivity;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
+import cn.ucai.fulicenter.model.bean.CategoryChildBean;
 
 /**
  * Created by MTJ on 2017/1/10.
@@ -48,9 +49,11 @@ public class MFGT {
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId);
         startActivity((Activity) context, intent);
     }
-    public static void gotoCategoryChild(Context context, int catId) {
+    //分类1跳二
+    public static void gotoCategoryChild(Context context, int catId, CategoryChildBean a) {
         Intent intent = new Intent(context,CategoryChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID, catId);
+        intent.putExtra(I.Category.KEY_NAME,a.getName());
         startActivity((Activity) context, intent);
     }
 }

@@ -60,7 +60,8 @@ public class BoutiqueFragment extends Fragment {
         ButterKnife.bind(this, layout);
         initView();
         mModel = new ModelBoutique();
-        setPullDownListener();
+        initData(I.ACTION_DOWNLOAD);//直接进入页面
+        setPullDownListener();//
         return layout;
     }
 

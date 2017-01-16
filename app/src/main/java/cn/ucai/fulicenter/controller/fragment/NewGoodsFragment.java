@@ -114,11 +114,11 @@ public class NewGoodsFragment extends Fragment {
                 if (!mAdapter.isMore()) {
                     if (action == I.ACTION_PULL_UP) {
                         //Log.i("加载数据>>>>>>>>>>>>>>>>>>", "xaizai>>>>>>>>>>>>>>>>>>>");
-                        mAdapter.setFooter("没有更多数据了/(ㄒoㄒ)");
+                        mAdapter.setFooter("没有更多数据了哦..");
                     }
                     return;
                 }
-                mAdapter.setFooter("加载更多数据O(∩_∩)");
+                mAdapter.setFooter("加载更多数据.");
                 ArrayList<NewGoodsBean> list = ConvertUtils.array2List(result);
                 switch (action) {
                     case I.ACTION_DOWNLOAD:
