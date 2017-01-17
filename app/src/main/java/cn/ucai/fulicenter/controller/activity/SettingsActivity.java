@@ -14,6 +14,7 @@ import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.SharePrefrenceUtils;
 import cn.ucai.fulicenter.model.ustils.ImageLoader;
+import cn.ucai.fulicenter.view.DisplayUtils;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -33,7 +34,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
+        DisplayUtils.initBackWithTitle(this, "设置");
         initData();
+
     }
 
     private void initData() {
@@ -52,18 +55,12 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.iv_fanhui_1, R.id.btn_logout})
+    @OnClick(R.id.btn_logout)
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_fanhui_1:
-                MFGT.finish(this);
-                break;
-            case R.id.btn_logout:
-                FuLiCenterApplication.setUser(null);
-                SharePrefrenceUtils.getInstance(this).removeUser();
-                MFGT.gotoLogin(this);
-                finish();
-                break;
-        }
+        FuLiCenterApplication.setUser(null);
+        SharePrefrenceUtils.getInstance(this).removeUser();
+        MFGT.gotoLogin(this);
+        finish();
     }
 }
+

@@ -1,8 +1,6 @@
 package cn.ucai.fulicenter.controller.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -10,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +20,7 @@ import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
 import cn.ucai.fulicenter.model.ustils.CommonUtils;
 import cn.ucai.fulicenter.model.ustils.ResultUtils;
+import cn.ucai.fulicenter.view.DisplayUtils;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -42,13 +42,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        //DisplayUtils.initBackWithTitle(this, "用户注册");
     }
 
-
-    @OnClick({R.id.ivReturn, R.id.btnRegister})
+    @OnClick({R.id.backClickArea, R.id.btnRegister})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ivReturn:
+            case R.id.backClickArea:
                 MFGT.finish(this);
                 break;
             case R.id.btnRegister:
@@ -57,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    //@OnClick(R.id.btnRegister)
     private void checkInput() {
         String usename = etUserName.getText().toString().trim();
         String usernick = etNick.getText().toString().trim();
@@ -94,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (s != null) {
                     Result result = ResultUtils.getResultFromJson(s, Result.class);
                     if (result != null) {
-                        Log.e(">>>>>>>>>>"," "+result);
+                        Log.e(">>>>>>>>>>", " " + result);
                         if (result.isRetMsg()) {
                             CommonUtils.showShortToast(R.string.register_success);
                             finish();
@@ -114,4 +115,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
