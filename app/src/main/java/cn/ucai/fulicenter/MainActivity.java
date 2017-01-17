@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (!mFragment[index].isAdded()) {
             ft.add(R.id.fragment_container, mFragment[index]);
         }
-        ft.show(mFragment[index]).commit();
+        ft.show(mFragment[index]).commitAllowingStateLoss();
     }
 
     private void setRadioStatus() {
@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (index == 4 && FuLiCenterApplication.getUser() == null) {
+            index = 0;
+        }
+        setFragment();
         setRadioStatus();
     }
 

@@ -68,6 +68,5 @@ public class PersonalCenteFragment extends Fragment {
     @OnClick({R.id.tv_center_settings,R.id.center_user_info})
     public void settings() {
         MFGT.gotoSetting(getActivity());
-
     }
 }
