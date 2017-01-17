@@ -1,6 +1,8 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -95,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.e(">>>>>>>>>>"," "+result);
                         if (result.isRetMsg()) {
                             CommonUtils.showShortToast(R.string.register_success);
+                            finish();
                         } else {
                             CommonUtils.showShortToast(R.string.register_fail_exists);
                         }

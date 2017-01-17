@@ -35,7 +35,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     }
 
     private static String getUserDataBaseName() {
-        return "cn.lch.fulicenter.db";
+        return "cn.mtj.fulicenter.db";
     }
 
     // 新建数据库

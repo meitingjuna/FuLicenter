@@ -1,5 +1,6 @@
 package cn.ucai.fulicenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
+import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
@@ -65,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueGoodsFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
-                .add(R.id.fragment_container, mPersonalCenteFragment)
+                // .add(R.id.fragment_container, mPersonalCenteFragment)
                 .show(mNewGoodsFragment)
                 .hide(mBoutiqueGoodsFragment)
                 .hide(mCategoryFragment)
-                .hide(mPersonalCenteFragment)
+                //  .hide(mPersonalCenteFragment)
                 .commit();
     }
 
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Layout_personal:
                 if (FuLiCenterApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
+                    rbs[4].setChecked(false);
                 } else {
                     index = 4;
                 }
@@ -102,8 +105,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .show(mFragment[index]).hide(mFragment[currentIndex]).commit();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.hide(mFragment[currentIndex]);
+        if (!mFragment[index].isAdded()) {
+            ft.add(R.id.fragment_container, mFragment[index]);
+        }
+        ft.show(mFragment[index]).commit();
     }
 
     private void setRadioStatus() {
@@ -116,4 +123,37 @@ public class MainActivity extends AppCompatActivity {
         }
         currentIndex = index;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setRadioStatus();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
+            index = 4;
+            setFragment();
+            setRadioStatus();
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

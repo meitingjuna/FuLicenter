@@ -3,6 +3,7 @@ package cn.ucai.fulicenter.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import cn.ucai.fulicenter.controller.activity.CategoryChildActivity;
 import cn.ucai.fulicenter.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulicenter.controller.activity.LoginActivity;
 import cn.ucai.fulicenter.controller.activity.RegisterActivity;
+import cn.ucai.fulicenter.controller.activity.SettingsActivity;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
 
@@ -51,21 +53,27 @@ public class MFGT {
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsId);
         startActivity((Activity) context, intent);
     }
+
     //分类1跳二
     public static void gotoCategoryChild(Context context, int catId, String getName, ArrayList<CategoryChildBean> list) {
-        Intent intent = new Intent(context,CategoryChildActivity.class);
+        Intent intent = new Intent(context, CategoryChildActivity.class);
         intent.putExtra(I.NewAndBoutiqueGoods.CAT_ID, catId);
-        intent.putExtra(I.CategoryGroup.NAME,getName);
-        intent.putExtra(I.CategoryChild.DATA,list);
+        intent.putExtra(I.CategoryGroup.NAME, getName);
+        intent.putExtra(I.CategoryChild.DATA, list);
         startActivity((Activity) context, intent);
     }
-    public static void gotoLogin(Activity context){
-        startActivity(context, LoginActivity.class);
+
+    public static void gotoLogin(Activity context) {
+        context.startActivityForResult(new Intent(context, LoginActivity.class), I.REQUEST_CODE_LOGIN);
     }
-    public static void gotoRegisterActivity(Activity context){
+
+    public static void gotoRegisterActivity(Activity context) {
         startActivity(context, RegisterActivity.class);
     }
 
 
+    public static void gotoSetting(Activity activity) {
+        startActivity(activity, SettingsActivity.class);
 
+    }
 }

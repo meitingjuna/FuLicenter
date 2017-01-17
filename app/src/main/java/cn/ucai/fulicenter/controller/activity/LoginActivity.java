@@ -96,6 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (savaUser) {
                                 SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
                                 FuLiCenterApplication.setUser(user);
+                                setResult(RESULT_OK);
+                                MFGT.finish(LoginActivity,this);
                             }
                             MFGT.finish(LoginActivity.this);
                         } else {
