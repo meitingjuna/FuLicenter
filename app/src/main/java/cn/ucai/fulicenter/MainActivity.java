@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         mFragment[1] = mBoutiqueGoodsFragment;
         mFragment[2] = mCategoryFragment;
         mFragment[4] = mPersonalCenteFragment;
+
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueGoodsFragment)

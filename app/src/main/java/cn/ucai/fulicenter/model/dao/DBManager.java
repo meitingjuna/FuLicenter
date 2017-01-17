@@ -48,7 +48,7 @@ public class DBManager {
         return false;
     }
 
-    /*public User getUser(String username) {
+    public User getUser(String username) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + UserDao.USER_TABLE_NAME
                 + " WHERE " + UserDao.USER_COLUME_NAME + "=?";
@@ -68,5 +68,5 @@ public class DBManager {
         }
         return null;
 
-    }*/
+    }
 }
