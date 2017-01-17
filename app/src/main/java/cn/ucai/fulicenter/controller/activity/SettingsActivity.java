@@ -2,6 +2,7 @@ package cn.ucai.fulicenter.controller.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +62,14 @@ public class SettingsActivity extends AppCompatActivity {
         SharePrefrenceUtils.getInstance(this).removeUser();
         MFGT.gotoLogin(this);
         finish();
+    }
+
+    @OnClick(R.id.layout_user_profile_nickname)
+    public void onClick() {
+        String nick = tvUserProfileNick.getText().toString().trim();
+        if (TextUtils.isEmpty(nick)){
+
+        }
     }
 }
 

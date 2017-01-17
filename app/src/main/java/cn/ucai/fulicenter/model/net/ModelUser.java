@@ -15,7 +15,7 @@ public class ModelUser implements IModelUser {
     public void login(Context context, String Username, String password, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_LOGIN)
-                .addParam(I.User.USER_NAME,Username)
+                .addParam(I.User.USER_NAME, Username)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .targetClass(String.class)
                 .execute(listener);
@@ -25,10 +25,20 @@ public class ModelUser implements IModelUser {
     public void register(Context context, String username, String usernick, String password, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_REGISTER)
-                .addParam(I.User.USER_NAME,username)
-                .addParam(I.User.NICK,usernick)
+                .addParam(I.User.USER_NAME, username)
+                .addParam(I.User.NICK, usernick)
                 .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
                 .post()
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void register(Context context, String username, String usernick, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.USER_NAME, username)
+                .addParam(I.User.NICK, usernick)
                 .targetClass(String.class)
                 .execute(listener);
     }
