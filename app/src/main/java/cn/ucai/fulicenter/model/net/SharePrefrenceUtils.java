@@ -10,13 +10,16 @@ import cn.ucai.fulicenter.application.I;
  */
 
 public class SharePrefrenceUtils {
-    private static final String SHARE_PREFENCE_NAME = "cn.user.fulicenter_user";
-    private static final String SHARE_PREFENCE_USERNAME = "cn.user.fulicenter_user_username";
+    private static final String SHARE_PREFERENCE_NAME = "cn.ucai.fulicenter_user";
+    private static final String SHARE_PREFERENCE_NAME_USERNAME = "cn.ucai.fulicenter_user_username";
     private static SharePrefrenceUtils instance;
     private static SharedPreferences preferences;
+    private SharedPreferences.Editor mEditor;
+    public static final String SHARE_KEY_USER_NAME = "share_key_user_name";
 
     public SharePrefrenceUtils(Context context) {
-        preferences = context.getSharedPreferences(SHARE_PREFENCE_NAME, Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(SHARE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        mEditor = preferences.edit();
     }
 
     public static SharePrefrenceUtils getInstance(Context context) {
@@ -26,11 +29,19 @@ public class SharePrefrenceUtils {
         return instance;
     }
 
-    public static void saveUser(String username) {
-        preferences.edit().putString(SHARE_PREFENCE_USERNAME, username).commit();
+    public void saveUser(String username) {
+        mEditor.putString(SHARE_KEY_USER_NAME, username);
+        mEditor.commit();
+
     }
 
-    public static String getUser() {
-        return preferences.getString(SHARE_PREFENCE_NAME, null);
+    public String getUser() {
+        return preferences.getString(SHARE_KEY_USER_NAME, null);
     }
+
+    public void removeUser() {
+        mEditor.remove(SHARE_KEY_USER_NAME);
+        mEditor.commit();
+    }
+
 }

@@ -1,7 +1,6 @@
 package cn.ucai.fulicenter.controller.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -14,9 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.fulicenter.R;
+import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.Result;
 import cn.ucai.fulicenter.model.bean.User;
+import cn.ucai.fulicenter.model.dao.UserDao;
 import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
@@ -90,10 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                     if (result != null) {
                         if (result.isRetMsg()) {
                             User user = (User) result.getRetData();
-                            SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
-                            Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-                            startActivity(intent);
-                            //MFGT.finish(LoginActivity.this);
+                            boolean savaUser = UserDao.getInstance().savaUser(user);
+                            Log.e(TAG, "savaUser" + savaUser);
+                            if (savaUser) {
+                                SharePrefrenceUtils.getInstance(LoginActivity.this).saveUser(user.getMuserName());
+                                FuLiCenterApplication.setUser(user);
+                            }
+                            MFGT.finish(LoginActivity.this);
                         } else {
                             if (result.getRetCode() == I.MSG_LOGIN_UNKNOW_USER) {
                                 CommonUtils.showShortToast(getString(R.string.login_fail_unknow_user));

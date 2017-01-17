@@ -6,16 +6,13 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
-import cn.ucai.fulicenter.MainActivity;
 import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.activity.BoutiquechildActivity;
 import cn.ucai.fulicenter.controller.activity.CategoryChildActivity;
 import cn.ucai.fulicenter.controller.activity.GoodsDetailsActivity;
 import cn.ucai.fulicenter.controller.activity.LoginActivity;
-import cn.ucai.fulicenter.controller.activity.Main2Activity;
 import cn.ucai.fulicenter.controller.activity.RegisterActivity;
-import cn.ucai.fulicenter.controller.activity.SplashActivity;
 import cn.ucai.fulicenter.model.bean.BoutiqueBean;
 import cn.ucai.fulicenter.model.bean.CategoryChildBean;
 
@@ -68,9 +65,7 @@ public class MFGT {
     public static void gotoRegisterActivity(Activity context){
         startActivity(context, RegisterActivity.class);
     }
-    public static void gotoMain2Activity(Activity context){
-        startActivity(context, Main2Activity.class);
-    }
+
 
 
 }

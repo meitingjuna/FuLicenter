@@ -16,6 +16,7 @@ import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
+import cn.ucai.fulicenter.controller.fragment.PersonalCenteFragment;
 import cn.ucai.fulicenter.view.MFGT;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueGoodsFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenteFragment mPersonalCenteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +54,21 @@ public class MainActivity extends AppCompatActivity {
         mNewGoodsFragment = new NewGoodsFragment();
         mBoutiqueGoodsFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
+        mPersonalCenteFragment = new PersonalCenteFragment();
 
         mFragment[0] = mNewGoodsFragment;
         mFragment[1] = mBoutiqueGoodsFragment;
         mFragment[2] = mCategoryFragment;
+        mFragment[4] = mPersonalCenteFragment;
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueGoodsFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
+                .add(R.id.fragment_container, mPersonalCenteFragment)
                 .show(mNewGoodsFragment)
                 .hide(mBoutiqueGoodsFragment)
                 .hide(mCategoryFragment)
+                .hide(mPersonalCenteFragment)
                 .commit();
     }
 
@@ -81,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 index = 3;
                 break;
             case R.id.Layout_personal:
-                if (FuLiCenterApplication.getUser()==null){
+                if (FuLiCenterApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
-                }else {
+                } else {
                     index = 4;
                 }
                 break;
