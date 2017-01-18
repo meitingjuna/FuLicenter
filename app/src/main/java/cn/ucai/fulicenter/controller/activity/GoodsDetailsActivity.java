@@ -23,6 +23,7 @@ import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelGoods;
 import cn.ucai.fulicenter.model.net.ModelGoods;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
+import cn.ucai.fulicenter.model.ustils.CommonUtils;
 import cn.ucai.fulicenter.view.FlowIndicator;
 import cn.ucai.fulicenter.view.MFGT;
 import cn.ucai.fulicenter.view.SlideAutoLoopView;
@@ -146,11 +147,30 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     public void onCollectlist() {
         User user = FuLiCenterApplication.getUser();
         if (user != null) {
-
+            setCollect(user);
         } else {
             MFGT.gotoLogin(this);
         }
+    }
 
+    public void setCollect(User user) {
+        model.setCollect(this, goodsId, user.getMuserName(),
+                isCollect ? I.ACTION_DELETE_COLLECT : I.ACTION_ADD_COLLECT,
+                new OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result!=null&&result.isSuccess()){
+                            isCollect =!isCollect;
+                            setCollectStatus();
+                            CommonUtils.showShortToast(result.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
 
     }
 
@@ -161,6 +181,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             ivGoodCollect.setImageResource(R.mipmap.bg_collect_in);
         }
     }
+
 
     private void initCollectStatus() {
         User user = FuLiCenterApplication.getUser();
@@ -187,6 +208,4 @@ public class GoodsDetailsActivity extends AppCompatActivity {
         }
 
     }
-
-
 }

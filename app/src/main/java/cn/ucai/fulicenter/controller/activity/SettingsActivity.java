@@ -57,7 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (user != null) {
             loadUser(user);
         } else {
-            MFGT.gotoLogin(this);
         }
     }
 
@@ -80,13 +79,14 @@ public class SettingsActivity extends AppCompatActivity {
     public void onClick1() {
         MFGT.finish(this);
     }
+
     //更新昵称
     @OnClick(R.id.layout_user_profile_nickname)
     public void onClickNick() {
         MFGT.gotoUpDataNick(this);
     }
 
-//
+    //
     @OnClick(R.id.layout_user_profile_avatar)
     public void onClick() {
         CommonUtils.showShortToast(R.string.username_connot_be_modify);
