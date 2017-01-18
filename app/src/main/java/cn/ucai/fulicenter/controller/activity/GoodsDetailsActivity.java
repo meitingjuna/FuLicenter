@@ -150,6 +150,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             setCollect(user);
         } else {
             MFGT.gotoLogin(this);
+            ivGoodCollect.setEnabled(true);
         }
     }
 
