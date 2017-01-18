@@ -32,9 +32,9 @@ public class ModelUser implements IModelUser {
                 .targetClass(String.class)
                 .execute(listener);
     }
-
+//更改昵称
     @Override
-    public void register(Context context, String username, String usernick, OnCompleteListener<String> listener) {
+    public void updatNick(Context context, String username, String usernick, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME, username)

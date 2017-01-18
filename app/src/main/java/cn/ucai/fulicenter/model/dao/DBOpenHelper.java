@@ -48,6 +48,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
     // 关闭数据库
     private void closeDB() {
         if (instance != null) {

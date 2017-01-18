@@ -2,7 +2,6 @@ package cn.ucai.fulicenter.model.dao;
 
 
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
-import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.model.bean.User;
 
 /**
@@ -36,8 +35,7 @@ public class UserDao {
         return DBManager.getInstance().saveUser(user);
     }
 
-    public User getUser(String username) {
-
-        return DBManager.getInstance().getUser(username);
+    public User getUser(String userName) {
+        return DBManager.getInstance().getUser(userName);
     }
 }

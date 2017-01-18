@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_updata"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/gexing"
+        layout="@layout/common_head_title_white" />
+
+
+
+    <!-- <Button
+
+         android:background="#fcfcfc"
+         android:text="请输入要更改的昵称"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />-->
+
+    <EditText
+        android:id="@+id/etUserNick"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/gexing"
+        android:background="#fcfcfc" />
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etUserNick"
+        android:background="@drawable/tb_btn_login_orange_normal"
+        android:gravity="center"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:text="保存"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>
+
+
+

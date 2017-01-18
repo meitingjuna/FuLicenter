@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-;import cn.ucai.fulicenter.model.bean.User;
+
+import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.ustils.L;
+
 
 /**
  * Created by LCH on 2017/1/17.
@@ -25,7 +26,7 @@ public class DBManager {
         dbHelper = new DBOpenHelper(context);
     }
 
-    public  static DBManager getInstance() {
+    public static DBManager getInstance() {
         if (dbHelper == null) {
             L.e(TAG, "没有调用onInit（）");
         }
@@ -48,15 +49,15 @@ public class DBManager {
         return false;
     }
 
-    public User getUser(String username) {
+    public User getUser(String userName) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String sql = "SELECT * FROM " + UserDao.USER_TABLE_NAME
                 + " WHERE " + UserDao.USER_COLUME_NAME + "=?";
         if (db.isOpen()) {
-            Cursor cursor = db.rawQuery(sql, new String[]{username});
+            Cursor cursor = db.rawQuery(sql, new String[]{userName});
             if (cursor.moveToNext()) {
                 User user = new User();
-                user.setMuserName(username);
+                user.setMuserName(userName);
                 user.setMuserNick(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUME_NICK)));
                 user.setMavatarId(cursor.getInt(cursor.getColumnIndex(UserDao.USER_COLUME_AVATAR)));
                 user.setMavatarPath(cursor.getString(cursor.getColumnIndex(UserDao.USER_COLUME_AVATAR_PATH)));
@@ -67,6 +68,5 @@ public class DBManager {
             }
         }
         return null;
-
     }
 }

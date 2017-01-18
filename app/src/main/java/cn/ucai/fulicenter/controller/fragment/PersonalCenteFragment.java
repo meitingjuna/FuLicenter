@@ -23,7 +23,6 @@ import cn.ucai.fulicenter.view.MFGT;
  */
 public class PersonalCenteFragment extends Fragment {
 
-
     @BindView(R.id.iv_user_avatar)
     ImageView ivUserAvatar;
     @BindView(R.id.tv_user_name)
@@ -57,15 +56,19 @@ public class PersonalCenteFragment extends Fragment {
         }
     }
 
-    private void loadUserInfo(User user) {
-        //ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
-        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),getContext(),ivUserAvatar);
-        tvUserName.setText(user.getMuserNick());
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        InitData();
     }
 
-    @OnClick({R.id.tv_center_settings,R.id.center_user_info})
+    private void loadUserInfo(User user) {
+        //ImageLoader.downloadImg(getContext(), ivUserAvatar, user.getAvatarPath());
+        ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user), getContext(), ivUserAvatar);
+        tvUserName.setText(user.getMuserNick());
+    }
+
+    @OnClick({R.id.tv_center_settings, R.id.center_user_info})
     public void settings() {
         MFGT.gotoSetting(getActivity());
     }

@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Layout_personal:
                 if (FuLiCenterApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
-                    rbs[4].setChecked(false);
                 } else {
                     index = 4;
                 }
@@ -111,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             ft.add(R.id.fragment_container, mFragment[index]);
         }
         ft.show(mFragment[index]).commitAllowingStateLoss();
+                //commitAllowingStateLoss();
     }
 
     private void setRadioStatus() {
