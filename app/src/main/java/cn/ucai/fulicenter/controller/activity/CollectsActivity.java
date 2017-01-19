@@ -61,44 +61,49 @@ public class CollectsActivity extends AppCompatActivity {
             finish();
         } else {
             initView();
-            intData(I.ACTION_DOWNLOAD);
+            initData();
             setListener();
-
         }
 
     }
 
-    private void intData(final int action) {
+
+    private void initData() {
+        pageId = 1;
+        downloadContactLiset(I.ACTION_DOWNLOAD, pageId);
+    }
+
+    private void downloadContactLiset(final int action, int PageId) {
         model = new ModelUser();
         model.getCollects(this, user.getMuserName(), pageId, I.PAGE_SIZE_DEFAULT, new OnCompleteListener<CollectBean[]>() {
             @Override
             public void onSuccess(CollectBean[] result) {
-                srl.setRefreshing(false);
+                /*srl.setRefreshing(false);
                 tvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
-                if (result != null && result.length > 0) {
-                    if (!mAdapter.isMore()) {
-                        if (action == I.ACTION_PULL_UP) {
-                            //Log.i("加载数据>>>>>>>>>>>>>>>>>>", "xaizai>>>>>>>>>>>>>>>>>>>");
-                            mAdapter.setFooter("没有更多数据了哦..");
-                        }
-                        return;
+                mAdapter.setMore(true);*/
+                mAdapter.setMore(result != null && result.length > 0);
+                if (!mAdapter.isMore()) {
+                    if (action == I.ACTION_PULL_UP) {
+                        mAdapter.setFooter("没有更多数据了哦..");
                     }
-                    mAdapter.setFooter("加载更多数据.");
-                    ArrayList<CollectBean> list = ConvertUtils.array2List(result);
-                    switch (action) {
-                        case I.ACTION_DOWNLOAD:
-                            mAdapter.initData(list);
-                            break;
-                        case I.ACTION_PULL_DOWN:
-                            srl.setRefreshing(false);
-                            tvRefresh.setVisibility(View.GONE);
-                            mAdapter.initData(list);
-                            break;
-                        case I.ACTION_PULL_UP:
-                            mAdapter.addData(list);
-                            break;
-                    }
+                    return;
+                }
+                mAdapter.setFooter("加载更多数据.");
+                ArrayList<CollectBean> list = ConvertUtils.array2List(result);
+                switch (action) {
+                    case I.ACTION_DOWNLOAD:
+                        mAdapter.initData(list);
+                        break;
+                    case I.ACTION_PULL_DOWN:
+                        srl.setRefreshing(false);
+                        tvRefresh.setVisibility(View.GONE);
+                        mAdapter.initData(list);
+                        break;
+                    case I.ACTION_PULL_UP:
+                        mAdapter.addData(list);
+                        break;
+                }
+
                /*     if (!mAdapter.isMore()) {
                         if (action == I.ACTION_PULL_UP) {
                             mAdapter.setFooter("没有更多数据了哦..");
@@ -115,9 +120,6 @@ public class CollectsActivity extends AppCompatActivity {
                     if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         mAdapter.setMore(false);
                     }*/
-                } else {
-                    mAdapter.setMore(false);
-                }
             }
 
             @Override
@@ -145,7 +147,7 @@ public class CollectsActivity extends AppCompatActivity {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && mAdapter.isMore() && lastPosition == mAdapter.getItemCount() - 1) ;
                 pageId++;
-                intData(I.ACTION_PULL_UP);
+                downloadContactLiset(I.ACTION_PULL_UP, pageId);
             }
         });
 
@@ -159,7 +161,7 @@ public class CollectsActivity extends AppCompatActivity {
                 srl.setRefreshing(true);
                 tvRefresh.setVisibility(View.VISIBLE);
                 pageId = 1;
-                intData(I.ACTION_PULL_DOWN);
+                downloadContactLiset(I.ACTION_PULL_DOWN, pageId);
             }
 
 

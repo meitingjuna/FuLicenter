@@ -96,10 +96,6 @@ public class NewGoodsFragment extends Fragment {
             }
         });
     }
-    public void sortGoods(int sortBy){
-        mAdapter.sortGoods(sortBy);
-    }
-
     private void initData() {
         pageId = 1;
         downloadContactLiset(I.ACTION_DOWNLOAD, pageId);
@@ -143,7 +139,6 @@ public class NewGoodsFragment extends Fragment {
         });
     }
 
-
     private void initView() {
         srl.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
@@ -157,6 +152,10 @@ public class NewGoodsFragment extends Fragment {
         mRw.setAdapter(mAdapter);
         mRw.addItemDecoration(new SpaceItemDecoration(20));
 
+    }
+
+    public void sortGoods(int sortBy){
+        mAdapter.sortGoods(sortBy);
     }
 
 
