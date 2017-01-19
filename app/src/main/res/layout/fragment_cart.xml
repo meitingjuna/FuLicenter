@@ -59,7 +59,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/layout_refresh_title" />
+            <TextView
+                android:id="@+id/tvRefresh"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="正在为您推荐"
+                android:textColor="#8ac2ef"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_nothing"

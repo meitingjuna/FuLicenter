@@ -107,12 +107,13 @@ public class SettingsActivity extends AppCompatActivity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        if (resultCode == RESULT_OK && requestCode == I.REQUEST_CODE_NICK) {
+        if (requestCode == I.REQUEST_CODE_NICK) {
             tvUserProfileNick.setText(FuLiCenterApplication.getUser().getMuserNick());
-        } else if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
-            uploadAvatar();
         } else {
             mOnSetAvatarListener.setAvatar(requestCode, data, ivUserProfileAvatar);
+        }
+        if (requestCode == OnSetAvatarListener.REQUEST_CROP_PHOTO) {
+            uploadAvatar();
         }
     }
 

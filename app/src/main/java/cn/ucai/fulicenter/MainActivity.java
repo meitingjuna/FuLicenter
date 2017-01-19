@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
 import cn.ucai.fulicenter.controller.fragment.BoutiqueFragment;
+import cn.ucai.fulicenter.controller.fragment.CartFragment;
 import cn.ucai.fulicenter.controller.fragment.CategoryFragment;
 import cn.ucai.fulicenter.controller.fragment.NewGoodsFragment;
 import cn.ucai.fulicenter.controller.fragment.PersonalCenteFragment;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueGoodsFragment;
     CategoryFragment mCategoryFragment;
+    CartFragment mCartFragment;
     PersonalCenteFragment mPersonalCenteFragment;
 
     @Override
@@ -57,21 +59,21 @@ public class MainActivity extends AppCompatActivity {
         mBoutiqueGoodsFragment = new BoutiqueFragment();
         mCategoryFragment = new CategoryFragment();
         mPersonalCenteFragment = new PersonalCenteFragment();
+        mCartFragment = new CartFragment();
 
         mFragment[0] = mNewGoodsFragment;
         mFragment[1] = mBoutiqueGoodsFragment;
         mFragment[2] = mCategoryFragment;
+        mFragment[3] = mCartFragment;
         mFragment[4] = mPersonalCenteFragment;
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, mNewGoodsFragment)
                 .add(R.id.fragment_container, mBoutiqueGoodsFragment)
                 .add(R.id.fragment_container, mCategoryFragment)
-                // .add(R.id.fragment_container, mPersonalCenteFragment)
                 .show(mNewGoodsFragment)
                 .hide(mBoutiqueGoodsFragment)
                 .hide(mCategoryFragment)
-                //  .hide(mPersonalCenteFragment)
                 .commit();
     }
 
@@ -86,9 +88,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Layout_category:
                 index = 2;
                 break;
+
             case R.id.Layout_cart:
-                index = 3;
+                if (FuLiCenterApplication.getUser() == null) {
+                    MFGT.gotoLogin(this, I.REQUEST_CODE_LOGIN_FROM_CART);
+                } else {
+                    index = 3;
+                }
                 break;
+
             case R.id.Layout_personal:
                 if (FuLiCenterApplication.getUser() == null) {
                     MFGT.gotoLogin(this);
@@ -110,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             ft.add(R.id.fragment_container, mFragment[index]);
         }
         ft.show(mFragment[index]).commitAllowingStateLoss();
-                //commitAllowingStateLoss();
+        //commitAllowingStateLoss();
     }
 
     private void setRadioStatus() {
@@ -139,25 +147,11 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_OK && requestCode == I.REQUEST_CODE_LOGIN) {
             index = 4;
-            setFragment();
-            setRadioStatus();
         }
+        if (requestCode == I.REQUEST_CODE_LOGIN_FROM_CART) {
+            index = 3;
+        }
+        setFragment();
+        setRadioStatus();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

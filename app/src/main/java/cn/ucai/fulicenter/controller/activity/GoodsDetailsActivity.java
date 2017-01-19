@@ -219,7 +219,9 @@ public class GoodsDetailsActivity extends AppCompatActivity {
     //添加购物车
     @OnClick(R.id.iv_good_cart)
     public void addCartonClick() {
+
         User user = FuLiCenterApplication.getUser();
+        if (user!=null){
         userModel = new ModelUser();
         userModel.updateCart(this, I.ACTION_CART_ADD,
                 user.getMuserName(), goodsId, 1, 0,
@@ -236,5 +238,8 @@ public class GoodsDetailsActivity extends AppCompatActivity {
 
                     }
                 });
+        }else {
+            MFGT.gotoLogin(this);
+        }
     }
 }
