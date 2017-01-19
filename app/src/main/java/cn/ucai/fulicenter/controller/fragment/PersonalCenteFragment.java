@@ -106,4 +106,8 @@ public class PersonalCenteFragment extends Fragment {
     public void settings() {
         MFGT.gotoSetting(getActivity());
     }
+    @OnClick( R.id.layout_center_collect)
+    public void ollects() {
+        MFGT.gotoCollects(getActivity());
+    }
 }
