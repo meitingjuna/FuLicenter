@@ -49,6 +49,13 @@ public class CollectAdapter extends RecyclerView.Adapter {
         isMore = more;
         notifyDataSetChanged();
     }
+    public void removeItem(int goodsId){
+        if (goodsId!=0) {
+            mList.remove(new CollectBean(goodsId));
+            notifyDataSetChanged();
+
+        }
+    }
 
 
     String footer;

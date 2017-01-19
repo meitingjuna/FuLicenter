@@ -1,5 +1,9 @@
 package cn.ucai.fulicenter.controller.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +53,7 @@ public class CollectsActivity extends AppCompatActivity {
     int pageId = 1;
     CollectAdapter mAdapter;
     GridLayoutManager gm;
+    UpdateCollectReceiver mReciver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +62,21 @@ public class CollectsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         DisplayUtils.initBackWithTitle(this, "收藏宝贝");
         user = FuLiCenterApplication.getUser();
+        mReciver = new UpdateCollectReceiver();
         if (user == null) {
             finish();
         } else {
             initView();
             initData();
             setListener();
+            setReciverListener();
         }
 
+    }
+
+    private void setReciverListener() {
+        IntentFilter filer = new IntentFilter(I.BROADCAST_UPDATA_COLLECT);
+        registerReceiver(mReciver,filer);
     }
 
 
@@ -163,8 +175,6 @@ public class CollectsActivity extends AppCompatActivity {
                 pageId = 1;
                 downloadContactLiset(I.ACTION_PULL_DOWN, pageId);
             }
-
-
         });
     }
 
@@ -181,5 +191,19 @@ public class CollectsActivity extends AppCompatActivity {
         mAdapter = new CollectAdapter(this, new ArrayList<CollectBean>());
         mRw.setAdapter(mAdapter);
     }
+    class UpdateCollectReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int goodsId=intent.getIntExtra(I.Collect.GOODS_ID,0);
+            mAdapter.removeItem(goodsId);
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mReciver!=null){
+            unregisterReceiver(mReciver);
+        }
+    }
 }
