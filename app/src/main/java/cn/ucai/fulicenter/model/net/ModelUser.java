@@ -95,50 +95,45 @@ public class ModelUser implements IModelUser {
 
     //添加购物车
 
-    private void addCart(Context context, String username, int goodsId, int cunt, OnCompleteListener<MessageBean> listener) {
+    private void addCart(Context context, String username, int goodsId, int count, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
-        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+        utils.setRequestUrl(I.REQUEST_ADD_CART)
                 .addParam(I.Cart.USER_NAME, username)
                 .addParam(I.Cart.GOODS_ID, String.valueOf(goodsId))
-                .addParam(I.Cart.COUNT, String.valueOf(cunt))
+                .addParam(I.Cart.COUNT, String.valueOf(count))
                 .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
 
-    //删除购物车
 
-    private void delCart(Context context, int cartId, OnCompleteListener<MessageBean> listener) {
+    private void delCart(Context context, int cardId, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_DELETE_CART)
-                .addParam(I.Cart.ID, String.valueOf(cartId))
+                .addParam(I.Cart.ID, String.valueOf(cardId))
                 .targetClass(MessageBean.class)
                 .execute(listener);
-
     }
 
 
-    private void updateCart(Context context, int cartId, int cunt, OnCompleteListener<MessageBean> listener) {
+    private void updateCart(Context context, int cartId, int count, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_UPDATE_CART)
                 .addParam(I.Cart.ID, String.valueOf(cartId))
-                .addParam(I.Cart.COUNT, String.valueOf(cunt))
+                .addParam(I.Cart.COUNT, String.valueOf(count))
                 .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
                 .targetClass(MessageBean.class)
                 .execute(listener);
-
     }
 
     @Override
-    public void updateCart(Context context, int action, String username, int goodsId, int cunt, int cartId, OnCompleteListener<MessageBean> listener) {
-        if (FuLiCenterApplication.getMyCartList().containsKey(goodsId)) {
-            if (action == I.ACTION_CART_DEL) {
-                delCart(context, cartId, listener);
-            } else {
-                updateCart(context, cartId, cunt, listener);
-            }
-        } else {
-            addCart(context, username, goodsId, 1, listener);
+    public void updateCart(Context context, int action, String username, int goodsId, int count, int cartId, OnCompleteListener<MessageBean> listener) {
+        if (action==I.ACTION_CART_ADD){
+            addCart(context,username,goodsId,1,listener);
+        }else if (action==I.ACTION_CART_DEL){
+            delCart(context,cartId,listener);
+        }else {
+            updateCart(context,cartId,count,listener);
         }
     }
 }
