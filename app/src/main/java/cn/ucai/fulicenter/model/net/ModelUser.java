@@ -4,7 +4,9 @@ import android.content.Context;
 
 import java.io.File;
 
+import cn.ucai.fulicenter.application.FuLiCenterApplication;
 import cn.ucai.fulicenter.application.I;
+import cn.ucai.fulicenter.model.bean.CartBean;
 import cn.ucai.fulicenter.model.bean.CollectBean;
 import cn.ucai.fulicenter.model.bean.MessageBean;
 import cn.ucai.fulicenter.model.bean.NewGoodsBean;
@@ -62,10 +64,10 @@ public class ModelUser implements IModelUser {
     }
 
     @Override
-    public void collectCount(Context context, String username,OnCompleteListener<MessageBean> listener) {
+    public void collectCount(Context context, String username, OnCompleteListener<MessageBean> listener) {
         OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
-                .addParam(I. Collect.USER_NAME, username)
+                .addParam(I.Collect.USER_NAME, username)
                 .targetClass(MessageBean.class)
                 .execute(listener);
     }
@@ -74,10 +76,69 @@ public class ModelUser implements IModelUser {
     public void getCollects(Context context, String username, int pageId, int pageSize, OnCompleteListener<CollectBean[]> lister) {
         OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
-                .addParam(I. Collect.USER_NAME, username)
-                .addParam(I.PAGE_ID,String.valueOf(pageId))
-                .addParam(I.PAGE_SIZE,String.valueOf(pageSize))
+                .addParam(I.Collect.USER_NAME, username)
+                .addParam(I.PAGE_ID, String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE, String.valueOf(pageSize))
                 .targetClass(CollectBean[].class)
                 .execute(lister);
+    }
+
+    @Override
+    public void getCart(Context context, String username, OnCompleteListener<CartBean[]> listener) {
+        OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME, username)
+                .targetClass(CartBean[].class)
+                .execute(listener);
+
+    }
+
+    //添加购物车
+
+    private void addCart(Context context, String username, int goodsId, int cunt, OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME, username)
+                .addParam(I.Cart.GOODS_ID, String.valueOf(goodsId))
+                .addParam(I.Cart.COUNT, String.valueOf(cunt))
+                .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    //删除购物车
+
+    private void delCart(Context context, int cartId, OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_CART)
+                .addParam(I.Cart.ID, String.valueOf(cartId))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+
+
+    private void updateCart(Context context, int cartId, int cunt, OnCompleteListener<MessageBean> listener) {
+        OkHttpUtils<MessageBean> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_UPDATE_CART)
+                .addParam(I.Cart.ID, String.valueOf(cartId))
+                .addParam(I.Cart.COUNT, String.valueOf(cunt))
+                .addParam(I.Cart.IS_CHECKED, String.valueOf(false))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+
+    @Override
+    public void updateCart(Context context, int action, String username, int goodsId, int cunt, int cartId, OnCompleteListener<MessageBean> listener) {
+        if (FuLiCenterApplication.getMyCartList().containsKey(goodsId)) {
+            if (action == I.ACTION_CART_DEL) {
+                delCart(context, cartId, listener);
+            } else {
+                updateCart(context, cartId, cunt, listener);
+            }
+        } else {
+            addCart(context, username, goodsId, 1, listener);
+        }
     }
 }

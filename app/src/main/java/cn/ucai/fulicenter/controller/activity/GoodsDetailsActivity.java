@@ -22,7 +22,9 @@ import cn.ucai.fulicenter.model.bean.GoodsDetailsBean;
 import cn.ucai.fulicenter.model.bean.MessageBean;
 import cn.ucai.fulicenter.model.bean.User;
 import cn.ucai.fulicenter.model.net.IModelGoods;
+import cn.ucai.fulicenter.model.net.IModelUser;
 import cn.ucai.fulicenter.model.net.ModelGoods;
+import cn.ucai.fulicenter.model.net.ModelUser;
 import cn.ucai.fulicenter.model.net.OnCompleteListener;
 import cn.ucai.fulicenter.model.ustils.CommonUtils;
 import cn.ucai.fulicenter.view.FlowIndicator;
@@ -32,6 +34,7 @@ import cn.ucai.fulicenter.view.SlideAutoLoopView;
 public class GoodsDetailsActivity extends AppCompatActivity {
     int goodsId = 0;
     IModelGoods model;
+    IModelUser userModel;
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.backClickArea)
@@ -161,12 +164,12 @@ public class GoodsDetailsActivity extends AppCompatActivity {
                 new OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        if (result!=null&&result.isSuccess()){
-                            isCollect =!isCollect;
+                        if (result != null && result.isSuccess()) {
+                            isCollect = !isCollect;
                             setCollectStatus();
                             CommonUtils.showShortToast(result.getMsg());
                             sendBroadcast(new Intent(I.BROADCAST_UPDATA_COLLECT).putExtra(
-                                    I.Collect.GOODS_ID,goodsId));
+                                    I.Collect.GOODS_ID, goodsId));
                         }
                     }
 
@@ -193,7 +196,7 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             model.isCollect(this, goodsId, user.getMuserName(), new OnCompleteListener<MessageBean>() {
                 @Override
                 public void onSuccess(MessageBean result) {
-                    Log.i(">>>>>>>>>>>>>>>>>>>>>>>",""+result);
+                    Log.i(">>>>>>>>>>>>>>>>>>>>>>>", "" + result);
                     if (result != null && result.isSuccess()) {
                         isCollect = true;
                     } else {
@@ -211,5 +214,27 @@ public class GoodsDetailsActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    //添加购物车
+    @OnClick(R.id.iv_good_cart)
+    public void addCartonClick() {
+        User user = FuLiCenterApplication.getUser();
+        userModel = new ModelUser();
+        userModel.updateCart(this, I.ACTION_CART_ADD,
+                user.getMuserName(), goodsId, 1, 0,
+                new OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result != null && result.isSuccess()) {
+                            CommonUtils.showShortToast(R.string.add_goods_success);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+
+                    }
+                });
     }
 }
