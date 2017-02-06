@@ -4,12 +4,12 @@
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_info_hover.png"
     },
     {
-        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png",
-        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png"
-    },
-    {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_btn_pressed_on.png",
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_btn_pressed_on.png"
+    },
+    {
+        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png",
+        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_login_btn_pressed.9.png"
     },
     {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_bottom_1_hover.9.png",
@@ -52,12 +52,12 @@
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_title_v_line.9.png"
     },
     {
-        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_pwdpay_title_bg.9.png",
-        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_pwdpay_title_bg.9.png"
-    },
-    {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ebpay_pwdpay_next_gray.png",
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ebpay_pwdpay_next_gray.png"
+    },
+    {
+        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_pwdpay_title_bg.9.png",
+        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\wallet_base_pwdpay_title_bg.9.png"
     },
     {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\wallet_base_tab_bar_bg.9.png",

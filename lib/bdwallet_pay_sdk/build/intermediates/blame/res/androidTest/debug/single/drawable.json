@@ -8,12 +8,12 @@
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable\\wallet_base_bg_clear_selector.xml"
     },
     {
-        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\wallet_base_dashed_shape_press.xml",
-        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable\\wallet_base_dashed_shape_press.xml"
-    },
-    {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\wallet_base_neg_btn_bg.xml",
         "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable\\wallet_base_neg_btn_bg.xml"
+    },
+    {
+        "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\wallet_base_dashed_shape_press.xml",
+        "source": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\bundles\\debug\\res\\drawable\\wallet_base_dashed_shape_press.xml"
     },
     {
         "merged": "D:\\ucai\\Android\\MyApplication2\\FuLiCenter\\lib\\bdwallet_pay_sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\wallet_base_dialog_btn_selector.xml",
